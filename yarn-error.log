@@ -1,0 +1,85 @@
+Arguments: 
+  /Users/encr23n10077/.nvm/versions/node/v14.21.3/bin/node /Users/encr23n10077/.nvm/versions/node/v14.21.3/bin/yarn add vscode-extension-common -D
+
+PATH: 
+  /Users/encr23n10077/.pyenv/shims:/Users/encr23n10077/.nvm/versions/node/v14.21.3/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/encr23n10077/.pyenv/shims:/Users/encr23n10077/.nvm/versions/node/v14.21.3/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  14.21.3
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/vscode-extension-common: Not found
+      at Request.params.callback [as _callback] (/Users/encr23n10077/.nvm/versions/node/v14.21.3/lib/node_modules/yarn/lib/cli.js:66145:18)
+      at Request.self.callback (/Users/encr23n10077/.nvm/versions/node/v14.21.3/lib/node_modules/yarn/lib/cli.js:140890:22)
+      at Request.emit (events.js:400:28)
+      at Request.<anonymous> (/Users/encr23n10077/.nvm/versions/node/v14.21.3/lib/node_modules/yarn/lib/cli.js:141862:10)
+      at Request.emit (events.js:400:28)
+      at IncomingMessage.<anonymous> (/Users/encr23n10077/.nvm/versions/node/v14.21.3/lib/node_modules/yarn/lib/cli.js:141784:12)
+      at Object.onceWrapper (events.js:519:28)
+      at IncomingMessage.emit (events.js:412:35)
+      at endReadableNT (internal/streams/readable.js:1333:12)
+      at processTicksAndRejections (internal/process/task_queues.js:82:21)
+
+npm manifest: 
+  {
+    "name": "encar-files",
+    "displayName": "encar-files",
+    "description": "",
+    "version": "0.0.1",
+    "engines": {
+      "vscode": "^1.85.0"
+    },
+    "categories": [
+      "Other"
+    ],
+    "activationEvents": [],
+    "main": "./out/extension.js",
+    "contributes": {
+      "commands": [
+        {
+          "command": "classNames",
+          "title": "엔카스타일바인딩포멧팅"
+        }
+      ],
+      "menus": {
+        "explorer/context": [
+          {
+            "command": "encar-files",
+            "group": "navigation",
+            "when": "explorerResourceIsFolder"
+          }
+        ]
+      }
+    },
+    "scripts": {
+      "vscode:prepublish": "npm run compile",
+      "compile": "tsc -p ./",
+      "watch": "tsc -watch -p ./",
+      "pretest": "npm run compile && npm run lint",
+      "lint": "eslint src --ext ts",
+      "test": "vscode-test"
+    },
+    "devDependencies": {
+      "@types/vscode": "^1.85.0",
+      "@types/mocha": "^10.0.6",
+      "@types/node": "18.x",
+      "@typescript-eslint/eslint-plugin": "^6.15.0",
+      "@typescript-eslint/parser": "^6.15.0",
+      "eslint": "^8.56.0",
+      "typescript": "^5.3.3",
+      "@vscode/test-cli": "^0.0.4",
+      "@vscode/test-electron": "^2.3.8"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

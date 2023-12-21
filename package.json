@@ -1,0 +1,60 @@
+{
+  "name": "encar-extension",
+  "displayName": "encar-extension",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "encar-files",
+        "title": "엔카파일템플릿"
+      },
+      {
+        "command": "classNames",
+        "title": "엔카스타일바인딩포멧팅"
+      }
+    ],
+    "keybindings": {
+      "command": "classNames",
+      "key": "cmd+shift+z"
+    },
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "encar-files",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/sinon": "^17.0.2",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.56.0",
+    "sinon": "^17.0.1",
+    "typescript": "^5.3.3"
+  }
+}
