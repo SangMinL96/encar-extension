@@ -1,0 +1,139 @@
+export const viteConfig = () => {
+  const const1 = "`process.env.${key}`";
+  const const2 = '`"${value}"`';
+
+  return `/* eslint-disable */
+  import { defineConfig } from "vite";
+  import react from "@vitejs/plugin-react";
+  import path from "path";
+  import fs from "fs";
+  
+  const root = process.cwd();
+  const femEnv = fs.readFileSync(path.resolve(root, ".env-cmdrc"), {
+    encoding: "utf8",
+  });
+  const defineEnv = () => {
+    const env = {};
+    Object.entries(JSON.parse(femEnv).local).forEach(
+      ([key, value]) => (env[${const1}] = ${const2})
+    );
+    env["process.env.NODE_ENV"] = '"local"';
+    return env;
+  };
+  
+  export default () => {
+    return defineConfig({
+      server: {
+        port: 3002,
+        host: "loc.encar.com",
+      },
+      css: {
+        modules: {
+          generateScopedName: "[name]__[hash:base64:5]",
+        },
+        preprocessorOptions: {
+          scss: {},
+        },
+      },
+      resolve: {
+        alias: {
+          app: path.resolve(root, "./src"),
+        },
+      },
+      define: {
+        process: "{}",
+        global: "{}",
+        ...defineEnv(),
+      },
+      optimizeDeps: {
+        esbuildOptions: {
+          loader: { ".js": "jsx" },
+        },
+      },
+      plugins: [
+        react({
+          jsxRuntime: "classic",
+          babel: {
+            presets: ["@babel/preset-react"],
+          },
+        }),
+      ],
+    });
+  };
+  `;
+};
+
+
+export const viteHtml = `<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <script src="/assets/js/common/browser.js"></script>
+    <meta name="naver-site-verification" content="340b4a9105c910bf7730594fb164ff40dfe84f5e" />
+    <meta name="google-site-verification" content="-mlfhX62h05FI__C7tIRVHJ7LfvR-uERdJ7nlwYYsjk" />
+    <meta name="facebook-domain-verification" content="2xnfhiu5wheuiglzcp22q1c2gjsbpf" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="viewport" content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width" />
+    <link rel="manifest" href="public/manifest.json" />
+    <title>대한민국 No.1 중고차 플랫폼 엔카</title>
+    <script>var IP_ADDRESS_INFO = 'ip_address_info';</script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?v=20220905&id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-WVBT8RH');
+    </script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body>
+    <!-- Low Browser -->
+    <script>enLowBrowserRedirect();</script>
+    <div id="wrap"></div>
+    <div id="page"></div>
+    <div id="modal"></div>
+    <div id="portal"></div>
+    <script type="module" src="./src/index.js"></script>
+  </body>
+</html>
+`;
+
+export const utilScss = `//전체 스프라이트 이미지 정보 import
+@mixin util-sprite($sprite){
+  $sprite-offset-x: calc(nth($sprite, 3) / 2);
+  $sprite-offset-y: calc(nth($sprite, 4) / 2);
+  $sprite-background-url: nth($sprite, 9);
+  width: calc(nth($sprite, 5) / 2);
+  height: calc(nth($sprite, 6) / 2);
+  background: url($sprite-background-url) $sprite-offset-x $sprite-offset-y no-repeat;
+  background-size: calc(nth($sprite, 7) / 2);
+}
+
+//oocss 방식 사용시 개별이미지 정보 import (width, height, background-position)
+@mixin util-unit($sprite){
+  $sprite-offset-x: calc(nth($sprite, 3) / 2);
+  $sprite-offset-y: calc(nth($sprite, 4) / 2);
+  width: calc(nth($sprite, 5) / 2);
+  height: calc(nth($sprite, 6) / 2);
+  background-position: $sprite-offset-x $sprite-offset-y;
+}`;
+
+export const utilScssBackup = `//전체 스프라이트 이미지 정보 import
+@mixin util-sprite($sprite){
+  $sprite-offset-x: calc(nth($sprite, 3) / 2);
+  $sprite-offset-y: calc(nth($sprite, 4) / 2);
+  width: calc(nth($sprite, 5) / 2);
+  height: calc(nth($sprite, 6) / 2);
+  background: url(nth($sprite, 9)) $sprite-offset-x $sprite-offset-y no-repeat;
+  background-size: calc(nth($sprite, 7) / 2);
+}
+
+//oocss 방식 사용시 개별이미지 정보 import (width, height, background-position)
+@mixin util-unit($sprite){
+  $sprite-offset-x: calc(nth($sprite, 3) / 2);
+  $sprite-offset-y: calc(nth($sprite, 4) / 2);
+  width: calc(nth($sprite, 5) / 2);
+  height: calc(nth($sprite, 6) / 2);
+  background-position: $sprite-offset-x $sprite-offset-y;
+}`;

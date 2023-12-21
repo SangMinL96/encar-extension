@@ -20,6 +20,10 @@
       {
         "command": "classNames",
         "title": "엔카스타일바인딩포멧팅"
+      },
+      {
+        "command": "fem-vite-start",
+        "title": "엔카FEM비트실행"
       }
     ],
     "keybindings": {
