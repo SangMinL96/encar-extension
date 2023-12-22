@@ -74,4 +74,11 @@ suite("익스텐션 테스트", () => {
     );
     fakeEditor.restore();
   });
+  test("FEM(vite)실행켜기", async () => {
+    fs.mkdirSync(path.join(__dirname, "services/fem"), { recursive: true });
+    await vscode.commands.executeCommand("fem-vite-open", {
+      ...vscode.Uri.parse(path.join(__dirname)),
+      isTest: true,
+    });
+  });
 });

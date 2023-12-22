@@ -22,8 +22,12 @@
         "title": "엔카스타일바인딩포멧팅"
       },
       {
-        "command": "fem-vite-start",
-        "title": "엔카FEM비트실행"
+        "command": "fem-vite-open",
+        "title": "엔카FEM비트켜기"
+      },
+      {
+        "command": "fem-vite-close",
+        "title": "엔카FEM비트끄기"
       }
     ],
     "keybindings": {

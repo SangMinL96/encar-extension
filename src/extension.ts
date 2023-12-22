@@ -3,7 +3,12 @@ import * as vscode from "vscode";
 import * as fs from "fs";
 import * as path from "path";
 import { initIndex, initReact, initScss } from "./template/initFiles";
-import { utilScss, viteConfig, viteHtml } from "./template/initVite";
+import {
+  utilScss,
+  utilScssBackup,
+  viteConfig,
+  viteHtml,
+} from "./template/initVite";
 
 export function activate(context: vscode.ExtensionContext) {
   let 파일템플릿 = vscode.commands.registerCommand(
@@ -58,20 +63,17 @@ export function activate(context: vscode.ExtensionContext) {
       }
     }
   );
-  let fem비트로컬실행 = vscode.commands.registerCommand(
-    "fem-vite-start",
-    async () => {
+  let fem비트로컬켜기 = vscode.commands.registerCommand(
+    "fem-vite-open",
+    async ({ isTest = false }) => {
       const root = vscode.workspace.rootPath as string;
       const exists = fs.existsSync(
-        path.resolve(root, "services/fem/local-vite")
+        path.resolve(root, "services/fem/local-vite/package.json")
       );
       if (exists) {
         vscode.window.showInformationMessage(
           `Vite 로컬 스타트를 이미 적용하셨어요! 초기화후 다시 실행해주세요`
         );
-        const terminal = await vscode.window.createTerminal();
-        terminal.sendText("yarn install");
-        terminal.show();
       } else {
         const packages = await vscode.workspace.openTextDocument(
           path.resolve(root, "services/fem/package.json")
@@ -109,12 +111,52 @@ export function activate(context: vscode.ExtensionContext) {
           path.resolve(`${root}`, "services/fem/src/assets/scss/spr/util.scss"),
           utilScss
         );
-        await vscode.window.createTerminal();
+        if (!isTest) {
+          const terminal = await vscode.window.createTerminal();
+          terminal.sendText("yarn install");
+          terminal.show();
+        }
       }
     }
   );
+  let fem비트로컬끄기 = vscode.commands.registerCommand(
+    "fem-vite-close",
+    async () => {
+      const root = vscode.workspace.rootPath as string;
+      const exists = fs.existsSync(
+        path.resolve(root, "services/fem/local-vite/package.json")
+      );
+      if (exists) {
+        const packages = await vscode.workspace.openTextDocument(
+          path.resolve(root, "services/fem/local-vite/package.json")
+        );
+        fs.writeFileSync(
+          path.resolve(`${root}`, "services/fem/package.json"),
+          packages.getText()
+        );
+      }
+      fs.writeFileSync(
+        path.resolve(`${root}`, "services/fem/src/assets/scss/spr/util.scss"),
+        utilScssBackup
+      );
+      if (fs.existsSync(path.resolve(`${root}`, "services/fem/local-vite"))) {
+        fs.rmdirSync(path.resolve(`${root}`, "services/fem/local-vite"), {
+          recursive: true,
+        });
+      }
+      if (fs.existsSync(path.resolve(`${root}`, "services/fem/index.html"))) {
+        fs.rmSync(path.resolve(`${root}`, "services/fem/index.html"));
+      }
+      if (
+        fs.existsSync(path.resolve(`${root}`, "services/fem/vite.config.js"))
+      ) {
+        fs.rmSync(path.resolve(`${root}`, "services/fem/vite.config.js"));
+      }
+      vscode.window.showInformationMessage(`FEM(vite)로컬 초기화 했습니다`);
+    }
+  );
   context.subscriptions.push(
-    ...[파일템플릿, 클래스바인딩포멧, fem비트로컬실행]
+    ...[파일템플릿, 클래스바인딩포멧, fem비트로컬켜기, fem비트로컬끄기]
   );
 }
 

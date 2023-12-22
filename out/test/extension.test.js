@@ -82,5 +82,12 @@ suite("익스텐션 테스트", () => {
         assert.strictEqual(classnameLength(mocks_1.mockComponent, /className=["'][^"']*["']/g), classnameLength(transformSnapshot, /className={cx\(["'][^"']*["']/g));
         fakeEditor.restore();
     });
+    test("FEM(vite)실행켜기", async () => {
+        fs.mkdirSync(path_1.default.join(__dirname, "services/fem"), { recursive: true });
+        await vscode.commands.executeCommand("fem-vite-open", {
+            ...vscode.Uri.parse(path_1.default.join(__dirname)),
+            isTest: true,
+        });
+    });
 });
 //# sourceMappingURL=extension.test.js.map
