@@ -5,8 +5,10 @@
 
 ## 엔카 폴더 템플릿 파일 생성
 
-### 빈 폴더 생성 후, 우클릭 -> js 또는 ts 입력
+### 사용방법: 빈 폴더 생성 후, 우클릭 -> js 또는 ts 입력
+### 사용이유: index.js,Component.js,Component.module.scss 3개의 파일을 만들기 번거로웠기 때문에 템플릿 사용함으로써 바로 개발 시작 가능.
 
+             
 ![Usage](images/템플릿.gif)
 
 
@@ -14,6 +16,7 @@
 ## className cx() 변환 
 
 ### 기본 단축키: cmd+ctrl+z 또는 F1 -> 스타일바인딩포멧
+### 사용이유: 마크업 개발시 classname 자동완성을 사용하여 빠르게 개발후 단축키로 cx("") 한번에 바꿔주기 위함
 
 ![Usage](images/클래스네임.gif)
 
