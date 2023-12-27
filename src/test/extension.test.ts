@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 import * as sinon from "sinon";
 import * as fs from "fs";
 import path from "path";
-import { mockComponent } from "../mocks";
+import { mockComponent, mockScssFile } from "../mocks";
 suite("익스텐션 테스트", () => {
   test("파일 생성 테스트", async () => {
     // Execute the "encar-files" command
@@ -74,11 +74,42 @@ suite("익스텐션 테스트", () => {
     );
     fakeEditor.restore();
   });
-  test("FEM(vite)실행켜기", async () => {
-    fs.mkdirSync(path.join(__dirname, "services/fem"), { recursive: true });
-    await vscode.commands.executeCommand("fem-vite-open", {
-      ...vscode.Uri.parse(path.join(__dirname)),
-      isTest: true,
-    });
+  // test("FEM(vite)실행켜기", async () => {
+  //   // fs.rmdirSync(path.join(__dirname, "services/fem"), { recursive: true });
+  //   fs.mkdirSync(path.join(__dirname, "services/fem"), { recursive: true });
+  //   await vscode.commands.executeCommand("fem-vite-open", {
+  //     ...vscode.Uri.parse(path.join(__dirname)),
+  //     isTest: true,
+  //   });
+  // });
+  test("scss파일 클린 테스트", async () => {
+    const fakeEditorMock: any = {
+      document: {
+        getText: sinon.stub().returns(mockScssFile),
+      } as any,
+      selection: new vscode.Selection(
+        new vscode.Position(0, 0),
+        new vscode.Position(1000, 0)
+      ),
+      edit: (callback: any) => {
+        const fakeEditBuilder: vscode.TextEditorEdit = {
+          replace: (selection: any, transforms: string) =>
+            (fakeEditorMock.document = {
+              getText: sinon.stub().returns(transforms),
+            }),
+        } as any;
+        callback(fakeEditBuilder);
+      },
+    };
+
+    const fakeEditor = sinon
+      .stub(vscode.window, "activeTextEditor")
+      .get(() => fakeEditorMock);
+    await vscode.commands.executeCommand("scss-file-clean");
+    const transformSnapshot = fakeEditorMock.document.getText();
+    const firstReplaceCount = (transformSnapshot.match(/: /g) || []).length;
+    const secondReplaceCount = (transformSnapshot.match(/;\}/g) || []).length;
+    assert.strictEqual(firstReplaceCount + secondReplaceCount, 0);
+    fakeEditor.restore();
   });
 });

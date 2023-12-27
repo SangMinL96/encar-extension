@@ -38,12 +38,38 @@
       {
         "command": "fem-vite-close",
         "title": "엔카FEM비트끄기"
+      },
+      {
+        "command": "search-file",
+        "title": "파일찾기"
+      },
+      {
+        "command": "pkg-search-file",
+        "title": "패키지파일찾기"
+      },
+      {
+        "command": "scss-file-clean",
+        "title": "scss파일정리"
       }
     ],
-    "keybindings": {
-      "command": "classNames",
-      "key": "cmd+shift+z"
-    },
+    "keybindings": [
+      {
+        "command": "classNames",
+        "key": "cmd+ctrl+z"
+      },
+      {
+        "command": "search-file",
+        "key": "cmd+shift+f"
+      },
+      {
+        "command": "pkg-search-file",
+        "key": "cmd+shift+d"
+      },
+      {
+        "command": "scss-file-clean",
+        "key": "cmd+ctrl+x"
+      }
+    ],
     "menus": {
       "explorer/context": [
         {

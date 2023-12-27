@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mockComponent = void 0;
+exports.mockScssFile = exports.mockComponent = void 0;
 exports.mockComponent = `import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -73,4 +73,15 @@ BoardView.defaultProps = {
 
 export default BoardView;
 `;
+exports.mockScssFile = `.root .caption{margin-bottom: 16px;font-size: 18px;letter-spacing: -1px;}
+.root table th{font-weight: normal;}
+@media print{
+	.root table tr th:last-of-type{border-left: 1px solid #e5e5e5;}
+}
+.copyright{
+	display: flex;margin: 20px auto 0;justify-content: flex-end;align-items: center;letter-spacing: -1px;
+	.date{font-size: 14px;}
+	.company{text-indent: 5px;font-size: 18px;font-weight:normal;}
+	img{margin-left: 15px;}
+}`;
 //# sourceMappingURL=index.js.map

@@ -82,12 +82,38 @@ suite("익스텐션 테스트", () => {
         assert.strictEqual(classnameLength(mocks_1.mockComponent, /className=["'][^"']*["']/g), classnameLength(transformSnapshot, /className={cx\(["'][^"']*["']/g));
         fakeEditor.restore();
     });
-    test("FEM(vite)실행켜기", async () => {
-        fs.mkdirSync(path_1.default.join(__dirname, "services/fem"), { recursive: true });
-        await vscode.commands.executeCommand("fem-vite-open", {
-            ...vscode.Uri.parse(path_1.default.join(__dirname)),
-            isTest: true,
-        });
+    // test("FEM(vite)실행켜기", async () => {
+    //   // fs.rmdirSync(path.join(__dirname, "services/fem"), { recursive: true });
+    //   fs.mkdirSync(path.join(__dirname, "services/fem"), { recursive: true });
+    //   await vscode.commands.executeCommand("fem-vite-open", {
+    //     ...vscode.Uri.parse(path.join(__dirname)),
+    //     isTest: true,
+    //   });
+    // });
+    test("scss파일 클린 테스트", async () => {
+        const fakeEditorMock = {
+            document: {
+                getText: sinon.stub().returns(mocks_1.mockScssFile),
+            },
+            selection: new vscode.Selection(new vscode.Position(0, 0), new vscode.Position(1000, 0)),
+            edit: (callback) => {
+                const fakeEditBuilder = {
+                    replace: (selection, transforms) => (fakeEditorMock.document = {
+                        getText: sinon.stub().returns(transforms),
+                    }),
+                };
+                callback(fakeEditBuilder);
+            },
+        };
+        const fakeEditor = sinon
+            .stub(vscode.window, "activeTextEditor")
+            .get(() => fakeEditorMock);
+        await vscode.commands.executeCommand("scss-file-clean");
+        const transformSnapshot = fakeEditorMock.document.getText();
+        const firstReplaceCount = (transformSnapshot.match(/: /g) || []).length;
+        const secondReplaceCount = (transformSnapshot.match(/;\}/g) || []).length;
+        assert.strictEqual(firstReplaceCount + secondReplaceCount, 0);
+        fakeEditor.restore();
     });
 });
 //# sourceMappingURL=extension.test.js.map

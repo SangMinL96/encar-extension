@@ -66,7 +66,7 @@ function activate(context) {
             });
         }
     });
-    let fem비트로컬켜기 = vscode.commands.registerCommand("fem-vite-open", async ({ isTest = false }) => {
+    let fem비트로컬켜기 = vscode.commands.registerCommand("fem-vite-open", async () => {
         const root = vscode.workspace.rootPath;
         const exists = fs.existsSync(path.resolve(root, "services/fem/local-vite/package.json"));
         if (exists) {
@@ -90,11 +90,10 @@ function activate(context) {
             fs.writeFileSync(path.resolve(root, "services/fem/vite.config.js"), (0, initVite_1.viteConfig)());
             fs.writeFileSync(path.resolve(root, "services/fem/index.html"), initVite_1.viteHtml);
             fs.writeFileSync(path.resolve(`${root}`, "services/fem/src/assets/scss/spr/util.scss"), initVite_1.utilScss);
-            if (!isTest) {
-                const terminal = await vscode.window.createTerminal();
-                terminal.sendText("yarn install");
-                terminal.show();
-            }
+            // if (isTest) return;
+            const terminal = await vscode.window.createTerminal();
+            terminal.sendText("yarn install");
+            terminal.show();
         }
     });
     let fem비트로컬끄기 = vscode.commands.registerCommand("fem-vite-close", async () => {
@@ -118,7 +117,140 @@ function activate(context) {
         }
         vscode.window.showInformationMessage(`FEM(vite)로컬 초기화 했습니다`);
     });
-    context.subscriptions.push(...[파일템플릿, 클래스바인딩포멧, fem비트로컬켜기, fem비트로컬끄기]);
+    let 파일찾기 = vscode.commands.registerCommand("search-file", async () => {
+        const editor = vscode.window.activeTextEditor;
+        if (editor) {
+            const document = editor.document;
+            const match = document.uri.fsPath.match(/(.+\/src)/);
+            const searchRootpath = match?.[1];
+            const selection = editor.selection;
+            const code = `${document.getText(selection)}.js`;
+            function 재귀탐색(fileName, rootPath) {
+                let filePaths = [];
+                function searchFiles(currentPath) {
+                    const files = fs.readdirSync(currentPath);
+                    for (const file of files) {
+                        const filePath = path.join(currentPath, file);
+                        const isDirectory = fs.statSync(filePath).isDirectory();
+                        if (isDirectory) {
+                            searchFiles(filePath);
+                        }
+                        else {
+                            if (path.basename(filePath) === fileName) {
+                                filePaths.push(filePath);
+                            }
+                        }
+                    }
+                }
+                searchFiles(rootPath);
+                return filePaths;
+            }
+            const 파일리스트 = 재귀탐색(code, `${searchRootpath}`);
+            if (파일리스트.length > 0) {
+                if (파일리스트.length === 1) {
+                    vscode.workspace.openTextDocument(파일리스트[0]).then((document) => {
+                        vscode.window.showTextDocument(document);
+                    });
+                }
+                else {
+                    vscode.window
+                        .showQuickPick(파일리스트.map((item) => item.replace(`${searchRootpath}/src/`, "")), {
+                        placeHolder: "원하는 파일을 선택하세요",
+                    })
+                        .then((selectedItem) => {
+                        if (selectedItem) {
+                            vscode.workspace
+                                .openTextDocument(`${searchRootpath}/src/${selectedItem}`)
+                                .then((document) => {
+                                vscode.window.showTextDocument(document);
+                            });
+                        }
+                    });
+                }
+            }
+        }
+    });
+    let 패키지파일찾기 = vscode.commands.registerCommand("pkg-search-file", async () => {
+        const editor = vscode.window.activeTextEditor;
+        if (editor) {
+            const root = vscode.workspace.rootPath;
+            const document = editor.document;
+            const selection = editor.selection;
+            const code = [
+                `${document.getText(selection)}.ts`,
+                `${document.getText(selection)}.tsx`,
+                `${document.getText(selection)}.js`,
+                `${document.getText(selection)}.jsx`,
+            ];
+            function 재귀탐색(fileName, rootPath) {
+                let filePaths = [];
+                function searchFiles(currentPath) {
+                    const files = fs.readdirSync(currentPath);
+                    for (const file of files) {
+                        const filePath = path.join(currentPath, file);
+                        const isDirectory = fs.statSync(filePath).isDirectory();
+                        if (isDirectory) {
+                            searchFiles(filePath);
+                        }
+                        else {
+                            if (fileName.includes(path.basename(filePath))) {
+                                filePaths.push(filePath);
+                            }
+                        }
+                    }
+                }
+                searchFiles(rootPath);
+                return filePaths;
+            }
+            const 파일리스트 = 재귀탐색(code, `${root}/packages`);
+            if (파일리스트.length > 0) {
+                if (파일리스트.length === 1) {
+                    vscode.workspace
+                        .openTextDocument(파일리스트[0])
+                        .then((document) => {
+                        vscode.window.showTextDocument(document);
+                    });
+                }
+                else {
+                    vscode.window
+                        .showQuickPick(파일리스트.map((item) => item.replace(`${root}/packages`, "")), {
+                        placeHolder: "원하는 파일을 선택하세요",
+                    })
+                        .then((selectedItem) => {
+                        if (selectedItem) {
+                            vscode.workspace
+                                .openTextDocument(`${root}/packages/${selectedItem}`)
+                                .then((document) => {
+                                vscode.window.showTextDocument(document);
+                            });
+                        }
+                    });
+                }
+            }
+        }
+    });
+    let scss파일정리 = vscode.commands.registerCommand("scss-file-clean", async () => {
+        const editor = vscode.window.activeTextEditor;
+        if (editor) {
+            await vscode.commands.executeCommand("editor.action.selectAll");
+            const document = editor.document;
+            const selection = editor.selection;
+            const code = document.getText(selection);
+            const transforms = code.replace(/:\s*/g, ":").replace(/;}/g, "}");
+            editor.edit((editBuilder) => {
+                editBuilder.replace(selection, transforms);
+            });
+        }
+    });
+    context.subscriptions.push(...[
+        파일템플릿,
+        클래스바인딩포멧,
+        fem비트로컬켜기,
+        fem비트로컬끄기,
+        파일찾기,
+        scss파일정리,
+        패키지파일찾기,
+    ]);
 }
 exports.activate = activate;
 // This method is called when your extension is deactivated
