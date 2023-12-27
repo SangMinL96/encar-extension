@@ -2,7 +2,7 @@
   "name": "encar-extension",
   "displayName": "encar-extension",
   "description": "encar-extension",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "SangMinLee",
   "engines": {
     "vscode": "^1.85.0"

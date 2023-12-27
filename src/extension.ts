@@ -161,8 +161,13 @@ export function activate(context: vscode.ExtensionContext) {
       const match = document.uri.fsPath.match(/(.+\/src)/);
       const searchRootpath = match?.[1];
       const selection = editor.selection;
-      const code = `${document.getText(selection)}.js`;
-      function 재귀탐색(fileName: string, rootPath: string) {
+      const code = [
+        `${document.getText(selection)}.ts`,
+        `${document.getText(selection)}.tsx`,
+        `${document.getText(selection)}.js`,
+        `${document.getText(selection)}.jsx`,
+      ];
+      function 재귀탐색(fileName: string[], rootPath: string) {
         let filePaths: any[] = [];
 
         function searchFiles(currentPath: string) {
@@ -173,7 +178,7 @@ export function activate(context: vscode.ExtensionContext) {
             if (isDirectory) {
               searchFiles(filePath);
             } else {
-              if (path.basename(filePath) === fileName) {
+              if (fileName.includes(path.basename(filePath))) {
                 filePaths.push(filePath);
               }
             }

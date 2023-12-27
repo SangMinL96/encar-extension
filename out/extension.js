@@ -124,7 +124,12 @@ function activate(context) {
             const match = document.uri.fsPath.match(/(.+\/src)/);
             const searchRootpath = match?.[1];
             const selection = editor.selection;
-            const code = `${document.getText(selection)}.js`;
+            const code = [
+                `${document.getText(selection)}.ts`,
+                `${document.getText(selection)}.tsx`,
+                `${document.getText(selection)}.js`,
+                `${document.getText(selection)}.jsx`,
+            ];
             function 재귀탐색(fileName, rootPath) {
                 let filePaths = [];
                 function searchFiles(currentPath) {
@@ -136,7 +141,7 @@ function activate(context) {
                             searchFiles(filePath);
                         }
                         else {
-                            if (path.basename(filePath) === fileName) {
+                            if (fileName.includes(path.basename(filePath))) {
                                 filePaths.push(filePath);
                             }
                         }
