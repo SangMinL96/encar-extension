@@ -78,6 +78,9 @@ export function activate(context: vscode.ExtensionContext) {
         const packages = await vscode.workspace.openTextDocument(
           path.resolve(root, "services/fem/package.json")
         );
+        const yarn = await vscode.workspace.openTextDocument(
+          path.resolve(root, "yarn.lock")
+        );
         // 초기셋
         fs.mkdirSync(path.resolve(root, "services/fem/local-vite"), {
           recursive: true,
@@ -86,7 +89,10 @@ export function activate(context: vscode.ExtensionContext) {
           path.resolve(`${root}`, "services/fem/local-vite/package.json"),
           packages.getText()
         );
-
+        fs.writeFileSync(
+          path.resolve(`${root}`, "services/fem/local-vite/yarn.lock"),
+          yarn.getText()
+        );
         // 비트에 필요한 파일 생성
         const 디펜던시추가 =
           '"@vitejs/plugin-react": "^4.2.1","sass": "^1.55.0","vite": "^4.1.4"';
@@ -122,34 +128,54 @@ export function activate(context: vscode.ExtensionContext) {
     "fem-vite-close",
     async () => {
       const root = vscode.workspace.rootPath as string;
-      const exists = fs.existsSync(
-        path.resolve(root, "services/fem/local-vite/package.json")
+      const path백업패키지 = path.resolve(
+        root,
+        "services/fem/local-vite/package.json"
       );
-      if (exists) {
+      const path얀 = path.resolve(root, "services/fem/local-vite/yarn.lock");
+      const path로컬비트폴더 = path.resolve(
+        `${root}`,
+        "services/fem/local-vite"
+      );
+      const path인덱스 = path.resolve(`${root}`, "services/fem/index.html");
+
+      const path비트설정 = path.resolve(
+        `${root}`,
+        "services/fem/vite.config.js"
+      );
+
+      // util.scss복원
+      fs.writeFileSync(
+        path.resolve(`${root}`, "services/fem/src/assets/scss/spr/util.scss"),
+        utilScssBackup
+      );
+      if (fs.existsSync(path백업패키지)) {
         const packages = await vscode.workspace.openTextDocument(
-          path.resolve(root, "services/fem/local-vite/package.json")
+          path백업패키지
         );
         fs.writeFileSync(
           path.resolve(`${root}`, "services/fem/package.json"),
           packages.getText()
         );
       }
-      fs.writeFileSync(
-        path.resolve(`${root}`, "services/fem/src/assets/scss/spr/util.scss"),
-        utilScssBackup
-      );
-      if (fs.existsSync(path.resolve(`${root}`, "services/fem/local-vite"))) {
-        fs.rmdirSync(path.resolve(`${root}`, "services/fem/local-vite"), {
+
+      if (fs.existsSync(path얀)) {
+        const 얀 = await vscode.workspace.openTextDocument(path얀);
+        fs.writeFileSync(
+          path.resolve(`${root}`, "yarn.lock"),
+          얀.getText()
+        );
+      }
+      if (fs.existsSync(path로컬비트폴더)) {
+        fs.rmdirSync(path로컬비트폴더, {
           recursive: true,
         });
       }
-      if (fs.existsSync(path.resolve(`${root}`, "services/fem/index.html"))) {
-        fs.rmSync(path.resolve(`${root}`, "services/fem/index.html"));
+      if (fs.existsSync(path인덱스)) {
+        fs.rmSync(path인덱스);
       }
-      if (
-        fs.existsSync(path.resolve(`${root}`, "services/fem/vite.config.js"))
-      ) {
-        fs.rmSync(path.resolve(`${root}`, "services/fem/vite.config.js"));
+      if (fs.existsSync(path비트설정)) {
+        fs.rmSync(path비트설정);
       }
       vscode.window.showInformationMessage(`FEM(vite)로컬 초기화 했습니다`);
     }
