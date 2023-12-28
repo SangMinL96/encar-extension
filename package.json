@@ -25,31 +25,27 @@
     "commands": [
       {
         "command": "encar-files",
-        "title": "엔카파일템플릿"
+        "title": ""
       },
       {
         "command": "classNames",
-        "title": "엔카스타일바인딩포멧팅"
+        "title": ""
       },
       {
-        "command": "fem-vite-open",
-        "title": "엔카FEM비트켜기"
-      },
-      {
-        "command": "fem-vite-close",
-        "title": "엔카FEM비트끄기"
+        "command": "fem-vite",
+        "title": "엔카FEM비트설정"
       },
       {
         "command": "search-file",
-        "title": "파일찾기"
+        "title": ""
       },
       {
         "command": "pkg-search-file",
-        "title": "패키지파일찾기"
+        "title": ""
       },
       {
         "command": "scss-file-clean",
-        "title": "scss파일정리"
+        "title": ""
       }
     ],
     "keybindings": [

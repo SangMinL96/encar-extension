@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.utilScssBackup = exports.utilScss = exports.viteHtml = exports.viteConfig = void 0;
+exports.gitIgnore = exports.utilScssBackup = exports.utilScss = exports.viteHtml = exports.viteConfig = void 0;
 const viteConfig = () => {
     const const1 = "`process.env.${key}`";
     const const2 = '`"${value}"`';
@@ -136,4 +136,98 @@ exports.utilScssBackup = `//전체 스프라이트 이미지 정보 import
   height: calc(nth($sprite, 6) / 2);
   background-position: $sprite-offset-x $sprite-offset-y;
 }`;
+exports.gitIgnore = `
+# Created by https://www.toptal.com/developers/gitignore/api/macos,yarn,react
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos,yarn,react
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+# Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### react ###
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+node_modules
+bower_components
+
+*.sublime*
+
+psd
+thumb
+sketch
+
+### yarn ###
+# https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
+
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# if you are NOT using Zero-installs, then:
+# comment the following lines
+# !.yarn/cache
+
+# and uncomment the following lines
+.pnp.*
+
+# End of https://www.toptal.com/developers/gitignore/api/macos,yarn,react
+
+### build ###
+**/lib/**
+**/dist/**
+**/build/**
+**/buildServer/**
+
+### parcel ###
+.parcel-cache
+
+### sdks vscode ###
+.vscode/*
+
+### StorybookJs ###
+# gitignore template for the Storybook, UI guide for front apps
+# website: https://storybook.js.org/
+storybook-static/
+
+### next
+**/.next/**
+
+### turbo
+.turbo
+
+services/fem/local-vite/yarn.lock
+services/fem/local-vite/package.json
+services/fem/vite.config.js
+services/fem/local-vite/gitignore
+services/fem/index.html`;
 //# sourceMappingURL=initVite.js.map
