@@ -45,7 +45,7 @@ export default vscode.commands.registerCommand("search-file", async () => {
         vscode.window
           .showQuickPick(
             파일리스트.map((item) =>
-              item.replace(`${searchRootpath}/src/`, "")
+              item.replace(`${searchRootpath}/`, "")
             ),
             {
               placeHolder: "원하는 파일을 선택하세요",
@@ -54,7 +54,7 @@ export default vscode.commands.registerCommand("search-file", async () => {
           .then((selectedItem) => {
             if (selectedItem) {
               vscode.workspace
-                .openTextDocument(`${searchRootpath}/src/${selectedItem}`)
+                .openTextDocument(`${searchRootpath}/${selectedItem}`)
                 .then((document) => {
                   vscode.window.showTextDocument(document);
                 });

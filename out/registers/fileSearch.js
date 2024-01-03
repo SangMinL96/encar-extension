@@ -68,13 +68,13 @@ exports.default = vscode.commands.registerCommand("search-file", async () => {
             }
             else {
                 vscode.window
-                    .showQuickPick(파일리스트.map((item) => item.replace(`${searchRootpath}/src/`, "")), {
+                    .showQuickPick(파일리스트.map((item) => item.replace(`${searchRootpath}/`, "")), {
                     placeHolder: "원하는 파일을 선택하세요",
                 })
                     .then((selectedItem) => {
                     if (selectedItem) {
                         vscode.workspace
-                            .openTextDocument(`${searchRootpath}/src/${selectedItem}`)
+                            .openTextDocument(`${searchRootpath}/${selectedItem}`)
                             .then((document) => {
                             vscode.window.showTextDocument(document);
                         });

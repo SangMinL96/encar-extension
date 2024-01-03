@@ -43,8 +43,6 @@ const viteConfig = () => {
         },
       },
       define: {
-        process: "{}",
-        global: "{}",
         ...defineEnv(),
       },
       optimizeDeps: {
@@ -78,6 +76,7 @@ exports.viteHtml = `<!DOCTYPE html>
     <link rel="manifest" href="public/manifest.json" />
     <title>대한민국 No.1 중고차 플랫폼 엔카</title>
     <script>var IP_ADDRESS_INFO = 'ip_address_info';</script>
+    <script>global = globalThis;</script>
     <!-- Google Tag Manager -->
     <script>
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
