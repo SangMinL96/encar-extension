@@ -2,7 +2,7 @@
   "name": "encar-extension",
   "displayName": "encar-extension",
   "description": "encar-extension",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "publisher": "SangMinLee",
   "engines": {
     "vscode": "^1.60.0"
@@ -25,7 +25,7 @@
     "commands": [
       {
         "command": "encar-files",
-        "title": ""
+        "title": "엔카파일템플릿"
       },
       {
         "command": "classNames",
