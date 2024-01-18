@@ -24,7 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = __importStar(require("vscode"));
-exports.default = vscode.commands.registerCommand("scss-file-clean", async () => {
+exports.default = vscode.commands.registerCommand("encar-scss-file-clean", async () => {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
         await vscode.commands.executeCommand("editor.action.selectAll");

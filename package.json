@@ -2,7 +2,7 @@
   "name": "encar-extension",
   "displayName": "encar-extension",
   "description": "encar-extension",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "publisher": "SangMinLee",
   "engines": {
     "vscode": "^1.60.0"
@@ -28,7 +28,7 @@
         "title": "엔카파일템플릿"
       },
       {
-        "command": "classNames",
+        "command": "encar-classNames",
         "title": ""
       },
       {
@@ -36,33 +36,33 @@
         "title": "엔카FEM비트설정"
       },
       {
-        "command": "search-file",
+        "command": "encar-search-file",
         "title": ""
       },
       {
-        "command": "pkg-search-file",
+        "command": "encar-pkg-search-file",
         "title": ""
       },
       {
-        "command": "scss-file-clean",
+        "command": "encar-scss-file-clean",
         "title": ""
       }
     ],
     "keybindings": [
       {
-        "command": "classNames",
+        "command": "encar-classNames",
         "key": "cmd+ctrl+z"
       },
       {
-        "command": "search-file",
+        "command": "encar-search-file",
         "key": "cmd+shift+f"
       },
       {
-        "command": "pkg-search-file",
+        "command": "encar-pkg-search-file",
         "key": "cmd+shift+d"
       },
       {
-        "command": "scss-file-clean",
+        "command": "encar-scss-file-clean",
         "key": "cmd+ctrl+x"
       }
     ],

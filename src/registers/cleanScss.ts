@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-export default vscode.commands.registerCommand("scss-file-clean", async () => {
+export default vscode.commands.registerCommand("encar-scss-file-clean", async () => {
   const editor = vscode.window.activeTextEditor;
   if (editor) {
     await vscode.commands.executeCommand("editor.action.selectAll");

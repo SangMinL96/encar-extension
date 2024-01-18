@@ -24,7 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode = __importStar(require("vscode"));
-exports.default = vscode.commands.registerCommand("classNames", async () => {
+exports.default = vscode.commands.registerCommand("encar-classNames", async () => {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
         await vscode.commands.executeCommand("editor.action.selectAll");

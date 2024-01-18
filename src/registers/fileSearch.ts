@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
 
-export default vscode.commands.registerCommand("search-file", async () => {
+export default vscode.commands.registerCommand("encar-search-file", async () => {
   const editor = vscode.window.activeTextEditor;
   if (editor) {
     const document = editor.document;

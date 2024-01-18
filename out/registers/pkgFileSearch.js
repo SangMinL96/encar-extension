@@ -27,7 +27,7 @@ const vscode = __importStar(require("vscode"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const root = vscode.workspace.rootPath;
-exports.default = vscode.commands.registerCommand("pkg-search-file", async () => {
+exports.default = vscode.commands.registerCommand("encar-pkg-search-file", async () => {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
         const document = editor.document;

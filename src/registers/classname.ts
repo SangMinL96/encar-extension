@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-export default vscode.commands.registerCommand("classNames", async () => {
+export default vscode.commands.registerCommand("encar-classNames", async () => {
   const editor = vscode.window.activeTextEditor;
 
   if (editor) {

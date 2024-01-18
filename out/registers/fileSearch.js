@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const vscode = __importStar(require("vscode"));
-exports.default = vscode.commands.registerCommand("search-file", async () => {
+exports.default = vscode.commands.registerCommand("encar-search-file", async () => {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
         const document = editor.document;

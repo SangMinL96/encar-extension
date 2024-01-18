@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 const root = vscode.workspace.rootPath as string;
 
-export default vscode.commands.registerCommand("pkg-search-file", async () => {
+export default vscode.commands.registerCommand("encar-pkg-search-file", async () => {
   const editor = vscode.window.activeTextEditor;
   if (editor) {
     const document = editor.document;
