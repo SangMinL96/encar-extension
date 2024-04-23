@@ -53,6 +53,7 @@ export const viteConfig = () => {
           jsxRuntime: "classic",
           babel: {
             presets: ["@babel/preset-react"],
+            plugins: ["@babel/plugin-transform-react-jsx-development"],
           },
         }),
       ],

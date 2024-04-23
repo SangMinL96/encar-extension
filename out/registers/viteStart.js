@@ -55,7 +55,7 @@ exports.default = async (context) => {
         // 기존 gitignore 백업
         fs.writeFileSync(path.resolve(`${root}`, "services/fem/local-vite/gitignore"), gitignore.getText());
         // 비트에 필요한 파일 생성
-        const 디펜던시추가 = '"@vitejs/plugin-react": "^4.2.1","sass": "^1.55.0","vite": "^4.1.4"';
+        const 디펜던시추가 = '"@vitejs/plugin-react": "^4.2.1","sass": "^1.55.0","vite": "^4.1.4","@babel/plugin-transform-react-jsx-development": "^7.22.5"';
         const 스타트스크립트변경 = '"start": "vite"';
         const transformsPackage = packages
             .getText()

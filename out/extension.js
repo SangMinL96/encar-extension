@@ -35,6 +35,8 @@ const fileTemplate_1 = __importDefault(require("./registers/fileTemplate"));
 const pkgFileSearch_1 = __importDefault(require("./registers/pkgFileSearch"));
 const viteClose_1 = __importDefault(require("./registers/viteClose"));
 const viteStart_1 = __importDefault(require("./registers/viteStart"));
+const autoClassname_1 = __importDefault(require("./registers/autoClassname"));
+const proptype_1 = __importDefault(require("./registers/proptype"));
 function activate(context) {
     let fem비트실행 = vscode.commands.registerCommand("fem-vite", async () => {
         const arr = ["실행", "끄기"];
@@ -60,6 +62,8 @@ function activate(context) {
         cleanScss_1.default,
         pkgFileSearch_1.default,
         fem비트실행,
+        autoClassname_1.default,
+        proptype_1.default
     ]);
 }
 exports.activate = activate;

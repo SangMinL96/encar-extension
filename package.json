@@ -2,7 +2,7 @@
   "name": "encar-extension",
   "displayName": "encar-extension",
   "description": "encar-extension",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "publisher": "SangMinLee",
   "engines": {
     "vscode": "^1.60.0"
@@ -46,6 +46,10 @@
       {
         "command": "encar-scss-file-clean",
         "title": ""
+      },
+      {
+        "command": "encar-prop-type",
+        "title": ""
       }
     ],
     "keybindings": [
@@ -55,15 +59,19 @@
       },
       {
         "command": "encar-search-file",
-        "key": "cmd+shift+f"
+        "key": "cmd+ctrl+f"
       },
       {
         "command": "encar-pkg-search-file",
-        "key": "cmd+shift+d"
+        "key": "cmd+ctrl+d"
       },
       {
         "command": "encar-scss-file-clean",
         "key": "cmd+ctrl+x"
+      },
+      {
+        "command": "encar-prop-type",
+        "key": "cmd+ctrl+p"
       }
     ],
     "menus": {

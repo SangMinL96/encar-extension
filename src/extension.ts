@@ -6,6 +6,8 @@ import fileTemplate from "./registers/fileTemplate";
 import pkgFileSearch from "./registers/pkgFileSearch";
 import viteClose from "./registers/viteClose";
 import viteStart from "./registers/viteStart";
+import autoClassname from "./registers/autoClassname";
+import proptype from "./registers/proptype";
 
 export function activate(context: vscode.ExtensionContext) {
   let fem비트실행 = vscode.commands.registerCommand("fem-vite", async () => {
@@ -33,6 +35,8 @@ export function activate(context: vscode.ExtensionContext) {
       cleanScss,
       pkgFileSearch,
       fem비트실행,
+      autoClassname,
+      proptype
     ]
   );
 }
