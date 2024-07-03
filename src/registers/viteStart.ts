@@ -55,7 +55,7 @@ export default async (context: any) => {
     );
     // 비트에 필요한 파일 생성
     const 디펜던시추가 =
-      '"@vitejs/plugin-react": "^4.2.1","sass": "^1.55.0","vite": "^4.1.4","@babel/plugin-transform-react-jsx-development": "^7.22.5"';
+      '"@vitejs/plugin-react": "^4.2.1","sass": "^1.55.0","vite": "^4.1.4","@babel/plugin-transform-react-jsx-development": "^7.22.5","vite-plugin-eslint": "^1.8.1"';
     const 스타트스크립트변경 = '"start": "vite"';
     const transformsPackage = packages
       .getText()

@@ -9,7 +9,8 @@ const viteConfig = () => {
   import react from "@vitejs/plugin-react";
   import path from "path";
   import fs from "fs";
-  
+  import eslint from "vite-plugin-eslint";
+
   const root = process.cwd();
   const femEnv = fs.readFileSync(path.resolve(root, ".env-cmdrc"), {
     encoding: "utf8",
@@ -58,6 +59,7 @@ const viteConfig = () => {
             plugins: ["@babel/plugin-transform-react-jsx-development"],
           },
         }),
+        eslint(),
       ],
     });
   };
